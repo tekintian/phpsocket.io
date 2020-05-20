@@ -9,6 +9,13 @@ More api just see http://socket.io/docs/server-api/
 # Install
 composer require workerman/phpsocket.io
 
+# use phpsocket in docker
+
+docker pull tekintian/alpine-php:7.2.29-cli-start
+
+and will start the /var/www/start.php start -d
+
+
 # Examples
 ## Simple chat
 start.php
