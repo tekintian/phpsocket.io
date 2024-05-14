@@ -2,9 +2,9 @@
 A server side alternative implementation of [socket.io](https://github.com/socketio/socket.io) in PHP based on [Workerman](https://github.com/walkor/Workerman).<br>
 
 # Notice
-Only support socket.io v1.3.0 or greater. <br>
+Only support socket.io >= v1.3.0 and <= v2.x <br>
 This project is just translate socket.io by [workerman](https://github.com/walkor/Workerman).<br>
-More api just see http://socket.io/docs/server-api/ 
+More api just see [https://socket.io/docs/v2/server-api/](https://socket.io/docs/v2/server-api/)
 
 # Install
 composer require workerman/phpsocket.io
@@ -145,11 +145,33 @@ $io->on('connection', function ($connection) use ($io) {
 Worker::runAll();
 ```
 
+## Acknowledgement callback
+```php
+
+use Workerman\Worker;
+use PHPSocketIO\SocketIO;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$io = new SocketIO(2021);
+
+$io->on('connection', function ($connection) use ($io) {
+    $socket->on('message with ack', function ($data, $callback) use ($socket, $io) {
+        // acknowledgement callback
+        if ($callback && is_callable($callback)) {
+            $callback(0);
+        }
+    });
+});
+
+Worker::runAll();
+```
+
 # 手册
 [中文手册](https://github.com/walkor/phpsocket.io/tree/master/docs/zh)
 
 # Livedemo
-[chat demo](http://www.workerman.net/demos/phpsocketio-chat/)
+[chat demo](http://demos.workerman.net/phpsocketio-chat/)
 
 # Run chat example
 cd examples/chat
